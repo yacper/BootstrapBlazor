@@ -217,8 +217,12 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     {
         if (OnEnterAsync != null)
         {
-            CurrentValueAsString = val;
-            await OnEnterAsync(Value);
+            // mod by yacper: 这里的val总是null，应该前置出错了
+            //CurrentValueAsString = val;
+            //await OnEnterAsync(Value);
+
+            // 调试发现CurrentValue的值是正确的，所以这里直接使用CurrentValue
+            await OnEnterAsync(CurrentValue);
         }
     }
 
